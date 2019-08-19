@@ -1,0 +1,74 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Created on Mon Aug 19 15:12:23 2019
+
+@author: smkj33
+"""
+
+import pymysql
+from queries import *
+from db_config import *
+
+
+
+
+from html.parser import HTMLParser
+
+
+# Strips HTML tags from text
+def strip_tags(html):
+    s = MLStripper()
+    s.feed(html)
+    # return s.get_data()
+    ret = ''.join([x.strip() for x in s.get_data().split('\r\n')])
+    return ret
+
+class MLStripper(HTMLParser):
+    def __init__(self):
+        self.reset()
+        self.strict = False
+        self.convert_charrefs= True
+        self.fed = []
+    def handle_data(self, d):
+        self.fed.append(d)
+    def get_data(self):
+        return ''.join(self.fed)
+
+
+
+def import_content ():
+    # user = 'root'
+    # password = 'log'
+    # db = 'db426841_843'
+    # host = '127.0.0.1'
+
+    # conn = pymysql.connect(host, user, password, db)
+    conn = pymysql.connect(**connection_properties)
+
+    cursor = conn.cursor()
+    
+    try:
+        sql = importContentQuery()
+        cursor.execute(sql)
+        rows = cursor.fetchall()
+
+        for x in rows:
+            print("Id = ", x[0], )
+            print("Title = ", x[1])
+            print("Content  = ", strip_tags(x[2]))
+            # desired_string = ''.join([x.strip() for x in str(strip_tags(x[2])).split('\r\n')])
+            # print(desired_string )
+        cursor.close()
+    
+    except Exception as e :
+        print ("Error while connecting to MySQL", e)
+    
+    finally:
+        #closing database connection.
+        if(conn.open):
+            conn.close()
+            print("MySQL connection is closed")
+
+
+import_content()
