@@ -1,21 +1,9 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Created on Mon Aug 20 18:00:07 2019
+Created on Mon Aug 19 11:56:07 2019
 
 @author: smkj33
-"""
-
-
-
-"""
-Previous Version: 
-    bkp_model_20_Aug.py
-
--- Removing html filter using HTML.parser 
--- Removing related import statement
--- Beautiful soup will be used in it's place'
-
 """
 
 
@@ -44,7 +32,32 @@ from queries import *
 from bs4 import BeautifulSoup
 
 
+# Text Parsing Packages
+# This is a part of the standard Python libraries
+from html.parser import HTMLParser
+
 import re
+
+
+
+# Strips HTML tags from text
+def strip_tags(html):
+    s = MLStripper()
+    s.feed(html)
+    ret = ''.join([x.strip() for x in s.get_data().split('\r\n')])
+    return ret
+
+class MLStripper(HTMLParser):
+    def __init__(self):
+        self.reset()
+        self.strict = False
+        self.convert_charrefs= True
+        self.fed = []
+    def handle_data(self, d):
+        self.fed.append(d)
+    def get_data(self):
+        return ''.join(self.fed)
+
 
 
 
@@ -64,12 +77,6 @@ def import_content ():
 
     except Exception as e :
         print ("Error while connecting to MySQL", e)
-
-
-
-
-
-
 
 
 
