@@ -121,8 +121,11 @@ def clean_tags(x):
 
 # REMOVE FROM HERE
 def get_recommendations(title, cosine_sim):
+
     # Get the index of the article that matches the title
-    article_index = indices[title]
+    # article_index = article_map['local_index'].loc[article_map['title'] == title].item()
+    article_index_ser = article_map['local_index'].loc[article_map['title'] == title]
+    article_index = next(iter(article_index_ser), 'no match')
 
     # Get the similarity scores
     """
@@ -142,7 +145,8 @@ def get_recommendations(title, cosine_sim):
     article_indices = [i[0] for i in sim_scores]
 
     # Return the top 10 most similar movies
-    return article_master['title'].iloc[article_indices]
+    # return article_master['title'].iloc[article_indices]
+    return article_map['title'].iloc[article_indices]
 
 
 
@@ -222,9 +226,13 @@ cosine_sim = (cosine_sim_content + 0.5 * cosine_sim_title +
 #-- At this point the newly calculated similarity model can be written to the database.
 """
 
-#Construct a reverse map of indices and article titles
-article_master = article_master.reset_index(drop=True)
-indices = pd.Series(article_master.index, index=article_master['title']).drop_duplicates()
+
+
+
+article_map = (article_master[['article_ID','title']].copy()).drop_duplicates()
+article_map['local_index'] = article_map.index
+
+
 
 """
 #-- At this point the newly index map can be written to the database.
@@ -234,7 +242,7 @@ indices = pd.Series(article_master.index, index=article_master['title']).drop_du
 
 
 
-print("Here")
+
 # print(get_recommendations('The ICP VR event at Hannover Messe 2018', cosine_sim))
 # pd.set_option('max_colwidth', 100)
 print(get_recommendations('Utilize all the available energy — Heat recovery', cosine_sim))
