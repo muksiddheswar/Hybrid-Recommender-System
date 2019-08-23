@@ -15,7 +15,7 @@ def importContentQuery ():
 def importMetadataQuery():
     sql = """ 
     SELECT 
-    t1.uid article_ID , 
+    t1.uid article_id , 
     t1.title title , 
     GROUP_CONCAT(t3.title SEPARATOR ', ') category,
     GROUP_CONCAT(t5.title SEPARATOR ', ') tags, 
@@ -41,5 +41,65 @@ def importMetadataQuery():
     ON t5.uid = t4.uid_foreign
     
     GROUP BY t1.uid , t1.title , t1.bodytext
+    """
+    return sql
+
+
+def export_content_similarity_query():
+    sql = """
+    INSERT INTO `recen_cosine_sim_content` (`local_id`, `scores`)
+    VALUES(%s, %s)
+    """
+    return sql
+
+
+def export_title_similarity_query():
+    sql = """
+    INSERT INTO `recen_cosine_sim_title` (`local_id`, `scores`)
+    VALUES(%s, %s)
+    """
+    return sql
+
+def export_cat_tags_similarity_query():
+    sql = """
+    INSERT INTO `recen_cosine_sim_cat_tags` (`local_id`, `scores`)
+    VALUES(%s, %s)
+    """
+    return sql
+
+def export_article_map_query():
+    sql = """
+    INSERT INTO `recen_article_map` (`local_id`,`article_id`,`title`)
+    VALUES(%s, %s, %s)
+    """
+    return sql
+
+def get_local_id_query():
+    sql = """
+    SELECT local_id FROM `recen_article_map` 
+    WHERE article_id IN (%s)
+    """
+    return sql
+
+def get_article_query():
+    sql = """
+    SELECT article_id, title FROM `recen_article_map` 
+    WHERE local_id IN (%s)
+    """
+    return sql
+
+def get_similarity_query():
+    sql = """
+    SELECT con.local_id local_id, con.scores content_sim, 
+    tit.scores title_sim, tag.scores cat_tags_sim
+    FROM
+    recen_cosine_sim_content con
+    LEFT JOIN
+    recen_cosine_sim_title tit
+    ON con.local_id = tit.local_id
+    LEFT JOIN
+    recen_cosine_sim_cat_tags tag
+    on con.local_id = tag.local_id
+    WHERE con.local_id IN (%s)
     """
     return sql

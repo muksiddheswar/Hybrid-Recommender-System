@@ -43,12 +43,8 @@ from sklearn.metrics.pairwise import cosine_similarity
 
 
 
-
-
-# Requried for connection to MySQL db
-import pymysql
-from db_config import *
-
+# Funtions interacting with the database
+from db_functions import *
 
 # DB Queries generated in here
 from queries import *
@@ -59,31 +55,9 @@ from bs4 import BeautifulSoup
 import re
 
 
-
-def import_content ():
-
-    try:
-        conn = pymysql.connect(**connection_properties)
-        sql = importMetadataQuery()
-        df = pd.read_sql(sql, conn)
-
-        #closing database connection.
-        if(conn.open):
-            conn.close()
-            print("MySQL connection is closed")
-
-        return df
-
-    except Exception as e :
-        print ("Error while connecting to MySQL", e)
-
-
-
 #-------------------------------------#
 # MODEL CREATE HELPER FUNCTIONS
 #-------------------------------------#
-
-
 
 
 
@@ -114,39 +88,40 @@ def porter_stemmer (txt, porter):
 def clean_tags(x):
     if isinstance(x, str):
         return str.lower(x.replace(" ", "")).replace(","," ")
-    
+
     else:
         return ''
 
 
-# REMOVE FROM HERE
-def get_recommendations(title, cosine_sim):
 
-    # Get the index of the article that matches the title
-    # article_index = article_map['local_index'].loc[article_map['title'] == title].item()
-    article_index_ser = article_map['local_index'].loc[article_map['title'] == title]
-    article_index = next(iter(article_index_ser), 'no match')
 
-    # Get the similarity scores
-    """
-    #-- Retrieve similarity scores corrosponding to the articles from the db 
-    """
+#-------------------------------------#
+# MODEL EXPORT HELPER FUNCTIONS
+#-------------------------------------#
 
-    # Get the pairwsie similarity scores of all articles with that article
-    sim_scores = list(enumerate(cosine_sim[article_index]))
+def matrix_to_jason(matrix):
+    df = pd.DataFrame(matrix.apply(lambda row: row.to_json(), axis=1), columns = ['jsol_col'])
+    df['local_id'] = df.index
+    return df
 
-    # Sort the movies based on the similarity scores
-    sim_scores = sorted(sim_scores, key=lambda x: x[1], reverse=True)
 
-    # Get the scores of the 10 most similar articles
-    sim_scores = sim_scores[1:11]
+def export_content_similarity (similarity_matrix):
+    df = matrix_to_jason(similarity_matrix)
+    sql = export_content_similarity_query()
+    export_data(df, sql)
 
-    # Get the article indices
-    article_indices = [i[0] for i in sim_scores]
 
-    # Return the top 10 most similar movies
-    # return article_master['title'].iloc[article_indices]
-    return article_map['title'].iloc[article_indices]
+def export_title_similarity (similarity_matrix):
+    df = matrix_to_jason(similarity_matrix)
+    sql = export_title_similarity_query()
+    export_data(df, sql)
+
+
+def export_cat_tags_similarity (similarity_matrix):
+    df = matrix_to_jason(similarity_matrix)
+    sql = export_cat_tags_similarity_query()
+    export_data(df, sql)
+
 
 
 
@@ -207,43 +182,40 @@ tfidf = TfidfVectorizer(stop_words='english')
 tfidf_matrix_content = tfidf.fit_transform(article_master['stemmed_content'])
 cosine_sim_content = linear_kernel(tfidf_matrix_content, tfidf_matrix_content)
 
+# Export content similarity matrix
+df = pd.DataFrame.from_records(cosine_sim_content)
+export_content_similarity(df)
+
+
 
 
 tfidf_matrix_title = tfidf.fit_transform(article_master['stemmed_title'])
 cosine_sim_title = linear_kernel(tfidf_matrix_title, tfidf_matrix_title)
+
+# Export title similarity matrix
+df = pd.DataFrame.from_records(cosine_sim_title)
+export_title_similarity(df)
+
+
 
 #-- Potential Global Variable
 count = CountVectorizer(stop_words='english')
 count_matrix = count.fit_transform(article_master["meta_soup"])
 cosine_sim_cat_tags = cosine_similarity(count_matrix, count_matrix)
 
-
-# FINAL SIMILARITY MATRIX
-cosine_sim = (cosine_sim_content + 0.5 * cosine_sim_title +
-              0.5 * cosine_sim_cat_tags)/3
-
-"""
-#-- At this point the newly calculated similarity model can be written to the database.
-"""
+# Export title similarity matrix
+df = pd.DataFrame.from_records(cosine_sim_cat_tags)
+export_cat_tags_similarity(df)
 
 
 
+article_map = (article_master[['article_id','title']].copy()).drop_duplicates()
+article_map['local_id'] = article_map.index
 
-article_map = (article_master[['article_ID','title']].copy()).drop_duplicates()
-article_map['local_index'] = article_map.index
+# Export article_map
+export_map(article_map)
 
-
-
-"""
-#-- At this point the newly index map can be written to the database.
-"""
+print("Model Created")
 
 
-
-
-
-
-# print(get_recommendations('The ICP VR event at Hannover Messe 2018', cosine_sim))
-# pd.set_option('max_colwidth', 100)
-print(get_recommendations('Utilize all the available energy — Heat recovery', cosine_sim))
 
