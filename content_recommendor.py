@@ -57,7 +57,7 @@ def reco_catcher(request_frame):
     cat_tags_sim = sim['cat_tags_sim'].apply(lambda row: pd.read_json(row, typ = 'list'))
 
 
-    # -- BUSINESS LOGIC-- #
+    # --ADDITIONAL BUSINESS LOGIC HERE-- #
 
     # Similarity combination
     cosine_sim = (content_sim * float(weights_values['content_weight'])) + (title_sim * float(weights_values['title_weight'])) + (cat_tags_sim * float(weights_values['cat_tags_weight']))
@@ -73,6 +73,8 @@ def reco_catcher(request_frame):
     index = index[1][:10]
 
     final_list = get_article(index)
+
+
 
     pd.set_option('max_colwidth', 100)
     print(final_list)
