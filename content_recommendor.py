@@ -21,7 +21,7 @@ def get_recommendations(title, cosine_sim):
 
     # Get the similarity scores
     """
-    #-- Retrieve similarity scores corrosponding to the articles from the db 
+    #-- Retrieve similarity scores corresponding to the articles from the db 
     """
 
     # Get the pairwsie similarity scores of all articles with that article
@@ -60,10 +60,15 @@ def reco_catcher(request_frame):
     # --ADDITIONAL BUSINESS LOGIC HERE-- #
 
     # Similarity combination
-    cosine_sim = (content_sim * float(weights_values['content_weight'])) + (title_sim * float(weights_values['title_weight'])) + (cat_tags_sim * float(weights_values['cat_tags_weight']))
+    cosine_sim = (content_sim * float(weights_values['content_weight'])) + \
+                 (title_sim * float(weights_values['title_weight']))\
+                 + (cat_tags_sim * float(weights_values['cat_tags_weight']))
+
     cosine_sim /= 3
 
     duration_weight = request_frame['duration']
+
+    # In the following step, the duration values are normalised
     duration_weight = (duration_weight - duration_weight.min())/(duration_weight.max() - duration_weight.min())
 
     final_score = cosine_sim.mul(duration_weight, axis = 0)

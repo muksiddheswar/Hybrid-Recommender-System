@@ -16,11 +16,6 @@ Previous Version:
 -- Removing related import statement
 -- Beautiful soup will be used in it's place'
 
-
-    bkp_model_19_Oct.py 
-    
---  Replaced Potter Stemmer with Snowball Stemmer
-
 """
 
 
@@ -37,8 +32,7 @@ from sklearn.feature_extraction.text import CountVectorizer
 
 # Requried to tokenise the text before Stemming
 from nltk.tokenize import sent_tokenize, word_tokenize
-# from nltk.stem import PorterStemmer
-from porter2stemmer import Porter2Stemmer
+from nltk.stem import PorterStemmer
 
 # Import linear_kernel for Cosine Similarity calculation of bodytext and title
 # This wil be applied on a tfidf matrix and NOT a count matrix
