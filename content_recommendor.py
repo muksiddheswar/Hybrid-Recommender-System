@@ -9,6 +9,8 @@ Created on Thu Aug 22 15:33:16 2019
 
 # Weights for combining the similarities cased on different factors
 from weights import *
+from db_functions import *
+import numpy as np
 
 
 # REMOVE FROM HERE
@@ -64,12 +66,13 @@ def reco_catcher(request_frame):
                  (title_sim * float(weights_values['title_weight']))\
                  + (cat_tags_sim * float(weights_values['cat_tags_weight']))
 
-    cosine_sim /= 3
+    cosine_sim /= (float(weights_values['content_weight']) + float(weights_values['title_weight']) + float(weights_values['cat_tags_weight']))
 
-    duration_weight = request_frame['duration']
+    duration_weight = pd.DataFrame(request_frame['duration'])
 
     # In the following step, the duration values are normalised
     duration_weight = (duration_weight - duration_weight.min())/(duration_weight.max() - duration_weight.min())
+    # duration_weight = (duration_weight - min(duration_weight)) / (max(duration_weight) - min(duration_weight))
 
     final_score = cosine_sim.mul(duration_weight, axis = 0)
 
@@ -79,17 +82,5 @@ def reco_catcher(request_frame):
 
     final_list = get_article(index)
 
+    return final_list
 
-
-    pd.set_option('max_colwidth', 100)
-    print(final_list)
-
-
-
-
-
-
-    # Extract list of final local_id s
-    # Select corrosponding article_id, title
-
-    # return in json format

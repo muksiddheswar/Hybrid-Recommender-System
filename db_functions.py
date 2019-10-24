@@ -14,6 +14,7 @@ Created on Thu Aug 22 14:37:14 2019
 
 
 import pandas as pd
+import numpy as np
 
 # Requried for connection to MySQL db
 import pymysql
@@ -79,7 +80,7 @@ def export_map(df):
 
 def get_local_id(article_id):
     id_string = ''
-    for index, row in article_id.iteritems():
+    for index, row in enumerate(article_id):
         if index > 0:
             id_string += ', '
         id_string += str(row)

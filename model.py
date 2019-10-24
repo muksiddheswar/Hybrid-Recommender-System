@@ -20,6 +20,7 @@ Previous Version:
     bkp_model_19_Oct.py 
     
 --  Replaced Potter Stemmer with Snowball Stemmer
+--  Added Cosine similarity with TS-SS.
 
 """
 
@@ -75,20 +76,14 @@ def filter_html(text):
 
 
 
-def text_stemmer(article_master, porter):
-    # The following line produces the stem of every word and then removes all non alphabet characters
-    article_master['stemmed_content'] = article_master.apply(lambda row: porter_stemmer(re.sub('[^a-z\s]', '', row.reduced_content), porter), axis = 1)
-    article_master['stemmed_content'] = article_master['stemmed_content'].fillna('')
-    return article_master
-
-
-def porter_stemmer (txt, porter):
+def text_stemmer (txt, stemmer):
     token_words=word_tokenize(txt)
     stem_sentence=[]
     for word in token_words:
-        stem_sentence.append(porter.stem(word))
+        stem_sentence.append(stemmer.stem(word))
         stem_sentence.append(" ")
     return "".join(stem_sentence)
+
 
 
 def clean_tags(x):
@@ -151,16 +146,24 @@ article_master['reduced_content'] = article_master.apply\
     (lambda row: re.sub('[^a-z\s]', '',filter_html(row.bodytext).lower()), axis = 1)
 
 #-- Potential Global Variable
-porter = PorterStemmer()
+
+# porter = PorterStemmer()
+snowball = Porter2Stemmer()
+
 article_master['stemmed_content'] = article_master.apply\
-    (lambda row: porter_stemmer(row.reduced_content, porter), axis = 1)
+    (lambda row: text_stemmer(row.reduced_content, snowball), axis = 1)
+
+article_master['stemmed_content'] = article_master['stemmed_content'].fillna('')
 
 
 
 # REDUCE TITLE:
 # It must be noted that numbers are removed from the content and not from the title
-article_master['reduced_title'] = article_master.apply(lambda row: re.sub('[^a-z0-9\s]', '',row.title.lower()), axis = 1)
-article_master['stemmed_title'] = article_master.apply(lambda row: porter_stemmer(row.reduced_title, porter), axis = 1)
+article_master['reduced_title'] = article_master.apply\
+    (lambda row: re.sub('[^a-z0-9\s]', '',row.title.lower()), axis = 1)
+
+article_master['stemmed_title'] = article_master.apply\
+    (lambda row: text_stemmer(row.reduced_title, snowball), axis = 1)
 
 
 
