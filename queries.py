@@ -103,3 +103,13 @@ def get_similarity_query():
     WHERE con.local_id IN (%s)
     """
     return sql
+
+
+def get_truncate_query():
+    sql1 = """ TRUNCATE TABLE recen_cosine_sim_content;"""
+    sql2 = """TRUNCATE TABLE recen_cosine_sim_title;"""
+    sql3 = """TRUNCATE TABLE recen_cosine_sim_cat_tags;"""
+    sql4 = """TRUNCATE TABLE recen_article_map;"""
+    sql = [sql1, sql2, sql3, sql4]
+
+    return sql

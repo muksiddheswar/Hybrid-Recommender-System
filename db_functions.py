@@ -155,3 +155,19 @@ def get_similarity(local_id):
 
 
 
+def truncate_similarities():
+
+    conn = pymysql.connect(**connection_properties)
+    queries = get_truncate_query()
+    cursor = conn.cursor()
+    try:
+        for index, sql in enumerate(queries):
+            cursor.execute(sql)
+
+        if (conn.open):
+            conn.close()
+            print("MySQL connection is closed")
+        return
+
+    except Exception as e :
+        print ("Error while connecting to MySQL", e)

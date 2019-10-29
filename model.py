@@ -132,7 +132,7 @@ def export_cat_tags_similarity (similarity_matrix):
 #-------------------------------------#
 
 
-
+truncate_similarities()
 article_master = import_content()
 
 
@@ -147,7 +147,6 @@ article_master['reduced_content'] = article_master.apply\
 
 #-- Potential Global Variable
 
-# porter = PorterStemmer()
 snowball = Porter2Stemmer()
 
 article_master['stemmed_content'] = article_master.apply\
