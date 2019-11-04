@@ -100,31 +100,46 @@ def clean_tags(x):
 # MODEL EXPORT HELPER FUNCTIONS
 #-------------------------------------#
 
-def matrix_to_jason(matrix):
-    df = pd.DataFrame(matrix.apply(lambda row: row.to_json(), axis=1), columns = ['jsol_col'])
+def matrix_to_json(matrix):
+    df = pd.DataFrame(matrix.apply(lambda row: row.to_json(), axis=1), columns = ['data_col'])
     df['local_id'] = df.index
     return df
 
 
-def export_content_similarity (similarity_matrix):
-    df = matrix_to_jason(similarity_matrix)
-    sql = export_content_similarity_query()
+def export_content_cosine_similarity (similarity_matrix):
+    df = matrix_to_json(similarity_matrix)
+    sql = export_content_cosine_similarity_query()
     export_data(df, sql)
 
 
 def export_title_similarity (similarity_matrix):
-    df = matrix_to_jason(similarity_matrix)
+    df = matrix_to_json(similarity_matrix)
     sql = export_title_similarity_query()
     export_data(df, sql)
 
 
 def export_cat_tags_similarity (similarity_matrix):
-    df = matrix_to_jason(similarity_matrix)
+    df = matrix_to_json(similarity_matrix)
     sql = export_cat_tags_similarity_query()
     export_data(df, sql)
 
 
+def export_content_theta(angles):
+    df = matrix_to_json(angles)
+    sql = export_content_theta_query()
+    export_data(df, sql)
 
+
+def export_content_distance(distance):
+    df = matrix_to_json(distance)
+    sql = export_content_distance_query()
+    export_data(df, sql)
+
+
+def export_content_magnitude(vector_size):
+    df = pd.DataFrame(vector_size, columns=['data_col'])
+    sql = export_content_magnitude_query()
+    export_data(df, sql)
 
 
 #-------------------------------------#
@@ -188,16 +203,20 @@ article_master["meta_soup"] = article_master["reduced_category"] + ' ' + article
 
 # Define a TF-IDF Vectorizer Object.
 # Remove all english stop words such as 'the', 'a'
-tfidf = TfidfVectorizer(stop_words='english')
-tfidf_matrix_content = tfidf.fit_transform(article_master['stemmed_content'])
+
+# tfidf = TfidfVectorizer(stop_words='english')
+# tfidf_matrix_content = tfidf.fit_transform(article_master['stemmed_content'])
+tfidf = TfidfVectorizer(stop_words = 'english', norm = None)
+tfidf_vectors = tfidf.fit_transform(article_master['stemmed_content'])
 
 
 # Create additional step that uses TS-SS similarity.
-cosine_sim_content = linear_kernel(tfidf_matrix_content, tfidf_matrix_content)
+# cosine_sim_content = linear_kernel(tfidf_matrix_content, tfidf_matrix_content)
+cosine_sim_content = cosine_similarity(tfidf_vectors)
 
 # Export content similarity matrix
 df = pd.DataFrame.from_records(cosine_sim_content)
-export_content_similarity(df)
+export_content_cosine_similarity(df)
 
 
 

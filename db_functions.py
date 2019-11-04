@@ -47,7 +47,7 @@ def export_data(df, sql):
     cursor = conn.cursor()
 
     try:
-        df.apply(lambda row: cursor.execute(sql, (row.local_id, row.jsol_col)), axis = 1)
+        df.apply(lambda row: cursor.execute(sql, (row.local_id, row.data_col)), axis = 1)
         conn.commit()
 
         #closing database connection.

@@ -9,5 +9,7 @@ import numpy as np
 # print(reco_catcher(req))
 
 
-from db_functions import *
-truncate_similarities()
+# from db_functions import *
+# truncate_similarities()
+
+

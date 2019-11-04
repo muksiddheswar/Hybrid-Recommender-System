@@ -107,7 +107,7 @@ def matrix_to_jason(matrix):
 
 def export_content_similarity (similarity_matrix):
     df = matrix_to_jason(similarity_matrix)
-    sql = export_content_similarity_query()
+    sql = export_content_cosine_similarity_query()
     export_data(df, sql)
 
 

@@ -45,7 +45,7 @@ def importMetadataQuery():
     return sql
 
 
-def export_content_similarity_query():
+def export_content_cosine_similarity_query():
     sql = """
     INSERT INTO `recen_cosine_sim_content` (`local_id`, `scores`)
     VALUES(%s, %s)
@@ -73,6 +73,39 @@ def export_article_map_query():
     VALUES(%s, %s, %s)
     """
     return sql
+
+
+def export_content_similarity_query():
+    sql = """
+    INSERT INTO `recen_cosine_sim_content` (`local_id`, `scores`)
+    VALUES(%s, %s)
+    """
+    return sql
+
+
+def export_content_theta_query():
+    sql = """
+    INSERT INTO `recen_theta_content` (`local_id`, `angle`)
+    VALUES(%s, %s)
+    """
+    return sql
+
+
+def export_content_distance_query():
+    sql = """
+    INSERT INTO `recen_distance_content` (`local_id`, `distance`)
+    VALUES(%s, %s)
+    """
+    return sql
+
+
+def export_content_magnitude_query():
+    sql = """
+    INSERT INTO `recen_magnitude_content` (`local_id`, `magnitude`)
+    VALUES(%s, %s)
+    """
+    return sql
+
 
 def get_local_id_query():
     sql = """
@@ -106,7 +139,7 @@ def get_similarity_query():
 
 
 def get_truncate_query():
-    sql1 = """ TRUNCATE TABLE recen_cosine_sim_content;"""
+    sql1 = """TRUNCATE TABLE recen_cosine_sim_content;"""
     sql2 = """TRUNCATE TABLE recen_cosine_sim_title;"""
     sql3 = """TRUNCATE TABLE recen_cosine_sim_cat_tags;"""
     sql4 = """TRUNCATE TABLE recen_article_map;"""
