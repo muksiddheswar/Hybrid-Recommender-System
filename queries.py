@@ -143,6 +143,9 @@ def get_truncate_query():
     sql2 = """TRUNCATE TABLE recen_cosine_sim_title;"""
     sql3 = """TRUNCATE TABLE recen_cosine_sim_cat_tags;"""
     sql4 = """TRUNCATE TABLE recen_article_map;"""
-    sql = [sql1, sql2, sql3, sql4]
+    sql5 = """TRUNCATE TABLE recen_theta_content;"""
+    sql6 = """TRUNCATE TABLE recen_distance_content;"""
+    sql7 = """TRUNCATE TABLE recen_magnitude_content;"""
 
+    sql = [sql1, sql2, sql3, sql4, sql5, sql6, sql7]
     return sql
