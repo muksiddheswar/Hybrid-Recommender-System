@@ -83,7 +83,7 @@ def export_content_similarity_query():
     return sql
 
 
-def export_content_theta_query():
+def export_content_angles_query():
     sql = """
     INSERT INTO `recen_theta_content` (`local_id`, `angle`)
     VALUES(%s, %s)

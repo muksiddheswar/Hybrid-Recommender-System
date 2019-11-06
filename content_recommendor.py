@@ -46,7 +46,7 @@ def get_recommendations(title, cosine_sim):
 
 
 #-------------------------------------#
-# RECOMMENDATION DRIVER
+# GET RECOMMENDATION DRIVER
 #-------------------------------------#
 
 def reco_catcher(request_frame):

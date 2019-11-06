@@ -125,9 +125,9 @@ def export_cat_tags_similarity (similarity_matrix):
     export_data(df, sql)
 
 
-def export_content_theta(angles):
+def export_content_angles(angles):
     df = matrix_to_json(angles)
-    sql = export_content_theta_query()
+    sql = export_content_angles_query()
     export_data(df, sql)
 
 
@@ -217,18 +217,18 @@ print("Exported Content Cosine Similarity Matrix .")
 # Theta, Euclidean Distance and Magnitude of TF-IDF vectors: required for TS-SS similarity
 angles = get_theta(cosine_sim_content)
 euclidean_distance = get_euclidean(tfidf_vectors)
-vector_size = get_magnitude(tfidf_vectors)
+vector_magnitude = get_magnitude(tfidf_vectors)
 
 # Export Theta matrix
 df = pd.DataFrame.from_records(angles)
-export_content_theta(df)
+export_content_angles(df)
 
 # Export Euclidean Distance  matrix
 df = pd.DataFrame.from_records(euclidean_distance)
 export_content_distance(df)
 
 # Export Vector Magnitudes
-df = pd.DataFrame.from_records(vector_size)
+df = pd.DataFrame.from_records(vector_magnitude)
 export_content_magnitude(df)
 
 print("Exported Content TS-SS Similarity Matrices .")
