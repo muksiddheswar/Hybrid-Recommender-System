@@ -150,13 +150,28 @@ import pandas as pd
 
 
 
-@app.route('/content-reco')
-def content_recommendor():
+@app.route('/content-reco-cosine')
+def content_recommendor_cosine():
 
 	try:
 
 		req_data = request.get_json()
 		resp = reco_catcher_cosine(req_data)
+		resp = resp.to_json(orient='records')
+		return resp
+
+	except Exception as e:
+		print(e)
+
+
+
+@app.route('/content-reco-ts')
+def content_recommendor_ts_ss():
+
+	try:
+
+		req_data = request.get_json()
+		resp = reco_catcher_ts_ss(req_data)
 		resp = resp.to_json(orient='records')
 		return resp
 
