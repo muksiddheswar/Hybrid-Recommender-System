@@ -101,7 +101,14 @@ def export_content_distance_query():
 
 def export_content_magnitude_query():
     sql = """
-    INSERT INTO `recen_magnitude_content` (`local_id`, `magnitude`)
+    INSERT INTO `recen_magnitude_content` (`local_id`, `magnitude_diff_square`)
+    VALUES(%s, %s)
+    """
+    return sql
+
+def export_ts_ss_query():
+    sql = """
+    INSERT INTO `recen_ts_ss_content` (`local_id`, `scores`)
     VALUES(%s, %s)
     """
     return sql
@@ -137,6 +144,13 @@ def get_similarity_query():
     """
     return sql
 
+def get_ts_ss_similarity_query():
+    sql = """
+    SELECT local_id , scores FROM recen_ts_ss_content
+    WHERE local_id IN (%s)
+    """
+    return sql
+
 
 def get_truncate_query():
     sql1 = """TRUNCATE TABLE recen_cosine_sim_content;"""
@@ -145,7 +159,8 @@ def get_truncate_query():
     sql4 = """TRUNCATE TABLE recen_article_map;"""
     sql5 = """TRUNCATE TABLE recen_theta_content;"""
     sql6 = """TRUNCATE TABLE recen_distance_content;"""
-    sql7 = """TRUNCATE TABLE recen_magnitude_content;"""
+    # sql7 = """TRUNCATE TABLE recen_magnitude_content;"""
+    sql7 = """TRUNCATE TABLE recen_ts_ss_content"""
 
     sql = [sql1, sql2, sql3, sql4, sql5, sql6, sql7]
     return sql

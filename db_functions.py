@@ -153,6 +153,29 @@ def get_similarity(local_id):
         print ("Error while connecting to MySQL", e)
 
 
+def get_ts_ss_similarity(local_id):
+    id_string = ''
+    for index, row in local_id.iterrows():
+        if index > 0:
+            id_string += ', '
+        id_string += str(row['local_id'])
+
+    conn = pymysql.connect(**connection_properties)
+    cursor = conn.cursor()
+    sql = get_ts_ss_similarity_query() % id_string
+
+    try:
+        df = pd.read_sql(sql, conn)
+
+        #closing database connection.
+        if(conn.open):
+           conn.close()
+           print("MySQL connection is closed")
+
+        return df
+
+    except Exception as e :
+        print ("Error while connecting to MySQL", e)
 
 
 def truncate_similarities():

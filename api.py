@@ -156,7 +156,7 @@ def content_recommendor():
 	try:
 
 		req_data = request.get_json()
-		resp = reco_catcher(req_data)
+		resp = reco_catcher_cosine(req_data)
 		resp = resp.to_json(orient='records')
 		return resp
 
