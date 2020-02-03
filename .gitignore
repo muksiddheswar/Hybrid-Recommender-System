@@ -1,3 +1,4 @@
+.gitignore
 .idea
 __pycache__
 collaborative_recommendation\Enriched_data\new__report-5670-20190711132352.csv
