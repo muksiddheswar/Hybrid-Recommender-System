@@ -2,8 +2,10 @@
 # -*- coding: utf-8 -*-
 """
 Created on Thu Aug 22 21:50:11 2019
-
 @author: smkj33
+
+NOTE:
+Business logic weights are added here
 """
 
 weights_values = {
