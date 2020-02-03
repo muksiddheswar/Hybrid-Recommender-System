@@ -2,8 +2,10 @@
 # -*- coding: utf-8 -*-
 """
 Created on Mon Aug 19 11:53:06 2019
-
 @author: smkj33
+
+NOTE: The queries need to be changed in case the database schema is changed.
+These queries are based on the default Typo3 News theme database schema.
 """
 
 
