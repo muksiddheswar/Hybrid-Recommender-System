@@ -10,7 +10,7 @@
 ## OPERATION:
 
 **model.py** - Creates the static recommendation model by importing all articles from the database. This needs to be rerun after addition of new articles.  
-**reco.py**  - Contains function necessary to suggest recommendations.
+**reco.py**  - Contains function necessary to suggest recommendations. (This is used by the API file).  
 
 **api.py**   - Python file for creating a live API.
 
