@@ -1,5 +1,4 @@
 .idea
-#.gitignore
 __pycache__
 collaborative_recommendation\Enriched_data\new__report-5670-20190711132352.csv
 collaborative_recommendation\URL_to_Article\URL_ArticleID_mapping.csv
