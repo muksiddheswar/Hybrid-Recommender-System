@@ -19,3 +19,12 @@
 * Details of API testing is included in the report.
 
 NOTE: It is assumed that the mysql database instance is already running in the background.
+
+* * * 
+## POSSIBLE IMPROVEMENTS
+1.  CUDA implementation in model.py for faster model creation.
+2.  Incremental update of the model. (Required for scalability) 
+    For this the term count and the document count matrices need to stored seperately and incrementally updated with each new article.
+3.  Model creation via API.
+4.  API security checks.
+
