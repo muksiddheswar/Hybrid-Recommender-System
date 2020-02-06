@@ -125,12 +125,12 @@ def export_ts_ss(ts_ss_sim_matrix):
 
 
 truncate_similarities()
+# In case the data is read from the database then the following is required.
 # article_master = import_content()
 
 
 # LOCAL IMPORT
-# If reading data from csv file read use the following line and comment the above line.
-# article_master = pd.read_csv(os.path.abspath("./data/content_metadata.csv"))
+article_master = pd.read_csv(os.path.abspath("./data/content_metadata.csv"))
 
 ## PREPROCESS CONTENT
 print("Previous Model Truncated.")

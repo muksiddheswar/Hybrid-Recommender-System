@@ -86,8 +86,9 @@ The APIs respond back with the top 10 article suggestions based on the input.
 
 ## DATASET
 
-For the purpose of testing, the sample dataset has been included in the folder **data**.
-However at the moment the engine is written such that it expects a database to interact with. If the reader wishes to reproduce the results then it is advisable to create a local MYSQL database for the Recommendation specific tables as stated above.
+For the purpose of testing, the sample dataset has been included in the folder **data**. Although in the original POC the data is directly fetched from the database, necessary changes have already been implemented so that the reader may import the csv file directly on running the model.py file.
+
+However at the moment the engine is developed such that it expects a database to interact with. If the reader wishes to reproduce the results then it is advisable to create a local MYSQL database for the Recommendation specific tables as stated above.
 
 The required DDL has been included in the repository in the **setup** folder.
 
