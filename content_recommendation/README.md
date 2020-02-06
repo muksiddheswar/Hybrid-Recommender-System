@@ -83,6 +83,15 @@ The APIs respond back with the top 10 article suggestions based on the input.
 </p>
 
 * * *
+
+## DATASET
+
+For the purpose of testing, the sample dataset has been included in the folder **data**.
+However at the moment the engine is written such that it expects a database to interact with. If the reader wishes to reproduce the results then it is advisable to create a local MYSQL database for the Recommendation specific tables as stated above.
+
+The required DDL has been included in the repository in the **setup** folder.
+
+* * *
 ## POSSIBLE IMPROVEMENTS
 1.  CUDA implementation in model.py for faster model creation.
 2.  Incremental update of the model. (Required for scalability)

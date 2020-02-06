@@ -31,7 +31,6 @@ from content_recommendation.support.queries import *
 # MODEL CREATE HELPER FUNCTIONS
 # -------------------------------------#
 
-
 def filter_html(text):
     soup = BeautifulSoup(text, features="html5lib")
     # text = re.sub('[^a-z\s]', '',soup.get_text(separator=' ').lower())
@@ -126,6 +125,7 @@ def export_ts_ss(ts_ss_sim_matrix):
 
 truncate_similarities()
 article_master = import_content()
+article_master = pd.read_csv(os.path.abspath("./content_recommendation/data/content_metadata.csv"))
 
 ## PREPROCESS CONTENT
 print("Previous Model Truncated.")
