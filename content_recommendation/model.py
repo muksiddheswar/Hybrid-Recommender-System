@@ -23,8 +23,8 @@ from sklearn.metrics.pairwise import cosine_similarity
 from sklearn.metrics.pairwise import euclidean_distances
 from sklearn.metrics import pairwise_distances
 
-from db_functions import *
-from queries import *
+from content_recommendation.support.db_functions import *
+from content_recommendation.support.queries import *
 
 
 # -------------------------------------#

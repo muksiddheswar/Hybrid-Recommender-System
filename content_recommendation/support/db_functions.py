@@ -18,8 +18,9 @@ import numpy as np
 
 # Requried for connection to MySQL db
 import pymysql
-from db_config import *
-from queries import *
+
+from content_recommendation.parameters.db_config import *
+from content_recommendation.support.queries import *
 
 
 

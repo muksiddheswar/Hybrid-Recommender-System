@@ -7,8 +7,8 @@ Created on Thu Aug 22 15:33:16 2019
 """
 
 # Weights for combining the similarities cased on different factors
-from weights import *
-from db_functions import *
+from content_recommendation.parameters.weights import *
+from content_recommendation.support.db_functions import *
 import numpy as np
 
 
