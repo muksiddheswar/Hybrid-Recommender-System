@@ -9,10 +9,6 @@ These queries are based on the default Typo3 News theme database schema.
 """
 
 
-def importContentQuery ():
-    sql = "SELECT uid, title, bodytext FROM tx_news_domain_model_news WHERE deleted = 0"
-    return sql
-
 
 def importMetadataQuery():
     sql = """ 

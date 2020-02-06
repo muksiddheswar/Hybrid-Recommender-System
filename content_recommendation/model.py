@@ -6,27 +6,6 @@ Created on Mon Aug 20 18:00:07 2019
 @author: smkj33
 """
 
-"""
-Previous Version: 
-    bkp_model_20_Aug.py
-
--- Removing html filter using HTML.parser 
--- Removing related import statement
--- Beautiful soup will be used in it's place'
-
-
-    bkp_model_19_Oct.py 
-
---  Replaced Potter Stemmer with Snowball Stemmer
---  Added Cosine similarity with TS-SS.
-
-
-    bkp_model_13_Nov.py 
-
---  Added TS-SS utility.
-
-"""
-
 import pandas as pd
 import re
 import math
@@ -140,13 +119,6 @@ def export_ts_ss(ts_ss_sim_matrix):
     export_data(df, sql)
 
 
-# def export_content_magnitude(vector_size):
-#     df = matrix_to_json(vector_size)
-#     df['local_id'] = df.index
-#     sql = export_content_magnitude_query()
-#     export_data(df, sql)
-
-
 # -------------------------------------#
 # MODEL CREATE DRIVER
 # -------------------------------------#
@@ -163,7 +135,6 @@ print("Pre-processing....")
 article_master['reduced_content'] = article_master.apply \
     (lambda row: re.sub('[^a-z\s]', '', filter_html(row.bodytext).lower()), axis=1)
 
-# -- Potential Global Variable
 
 snowball = Porter2Stemmer()
 
