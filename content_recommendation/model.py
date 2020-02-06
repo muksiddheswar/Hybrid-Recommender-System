@@ -7,6 +7,7 @@ Created on Mon Aug 20 18:00:07 2019
 """
 
 import pandas as pd
+import os
 import re
 import math
 from bs4 import BeautifulSoup
@@ -124,8 +125,12 @@ def export_ts_ss(ts_ss_sim_matrix):
 
 
 truncate_similarities()
-article_master = import_content()
-article_master = pd.read_csv(os.path.abspath("./content_recommendation/data/content_metadata.csv"))
+# article_master = import_content()
+
+
+# LOCAL IMPORT
+# If reading data from csv file read use the following line and comment the above line.
+# article_master = pd.read_csv(os.path.abspath("./data/content_metadata.csv"))
 
 ## PREPROCESS CONTENT
 print("Previous Model Truncated.")
