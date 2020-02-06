@@ -1,0 +1,45 @@
+CREATE TABLE `db426841_843`.`recen_cosine_sim_content` (
+  `local_id` INT NOT NULL,
+  `scores` JSON NULL,
+  PRIMARY KEY (`local_id`));
+  
+  
+CREATE TABLE `db426841_843`.`recen_cosine_sim_title` (
+  `local_id` INT NOT NULL,
+  `scores` JSON NULL,
+  PRIMARY KEY (`local_id`));
+  
+
+CREATE TABLE `db426841_843`.`recen_cosine_sim_cat_tags` (
+  `local_id` INT NOT NULL,
+  `scores` JSON NULL,
+  PRIMARY KEY (`local_id`));
+  
+-- Not in use: deprecated
+CREATE TABLE `db426841_843`.`recen_magnitude_content` (
+  `local_id` INT NOT NULL,
+  `magnitude_diff_square` JSON NULL,
+  PRIMARY KEY (`local_id`));
+
+
+CREATE TABLE `db426841_843`.`recen_ts_ss_content` (
+  `local_id` INT NOT NULL,
+  `scores` JSON NULL,
+  PRIMARY KEY (`local_id`));
+
+CREATE TABLE `db426841_843`.`recen_theta_content` (
+  `local_id` INT NOT NULL,
+  `angle` JSON NULL,
+  PRIMARY KEY (`local_id`));
+  
+CREATE TABLE `db426841_843`.`recen_distance_content` (
+  `local_id` INT NOT NULL,
+  `distance` JSON NULL,
+  PRIMARY KEY (`local_id`));
+
+
+CREATE TABLE `db426841_843`.`recen_article_map` (
+  `local_id` INT NOT NULL,
+  `article_id` INT NOT NULL ,
+  `title` tinytext NULL,
+  PRIMARY KEY (`local_id`));
