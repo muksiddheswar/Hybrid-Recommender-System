@@ -61,4 +61,4 @@ The recommendations as suggested for the mentioned user are as follows. The list
 ## OBSERVATION
 It has been observed that the performance of collaborative model has been quite inferior as compared to the Content recommendation results. This can be attributed to the lack of sufficient data pertaining to end-user interaction with article pages. Most importantly more accurate page visit information is required, especially the time spent in individual article pages.
 
-This is the reason this POC was not developed as a Python script for the time being.
+This is the reason this section was not developed as a Python script for the time being.
