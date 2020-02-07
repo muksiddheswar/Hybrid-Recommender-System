@@ -72,6 +72,7 @@ There are 2 types of query point that have been developed:
 
 POSTMAN was used for testing purpose. Both APIs expect a JSON input containing a list of article ids and the time spent by a particular user per article. It is planned that this information will be stored in the user’s browser in the form of cookies.
 
+
 <p align="center">
   <img src= "../img/json.png" alt = "Json Format" >  
 </p>
@@ -82,6 +83,8 @@ The APIs respond back with the top 10 article suggestions based on the input.
   <img src= "../img/results.png" alt = "API Results" >  
 </p>
 
+The API testing was performed with POSTMAN. For the ease of reference of the reader, the relevant POSTMAN requests have been included in the folder **test** .
+
 * * *
 
 ## DATASET
@@ -91,6 +94,7 @@ For the purpose of testing, the sample dataset has been included in the folder *
 However at the moment the engine is developed such that it expects a database to interact with. If the reader wishes to reproduce the results then it is advisable to create a local MYSQL database for the Recommendation specific tables as stated above.
 
 The required DDL has been included in the repository in the **setup** folder.
+
 
 * * *
 ## POSSIBLE IMPROVEMENTS

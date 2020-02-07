@@ -1,0 +1,82 @@
+{
+	"info": {
+		"_postman_id": "7e0a368e-5e85-4bb6-a8f5-edb906917041",
+		"name": "Recommendation_Engine API Test",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "http://127.0.0.1:5000/content-reco-cosine",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"article_id\": [\"1011\", \"1019\", \"1022\"],\n\t\"duration\": [120, 300, 50]\n}"
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/content-reco-cosine",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"content-reco-cosine"
+					]
+				},
+				"description": "API testing for Cosine Similarity"
+			},
+			"response": []
+		},
+		{
+			"name": "http://127.0.0.1:5000/content-reco-ts",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"article_id\": [\"1011\", \"1019\", \"1022\"],\n\t\"duration\": [120, 300, 50]\n}"
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/content-reco-ts",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"content-reco-ts"
+					]
+				},
+				"description": "API testing for TS-SS similiary"
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
