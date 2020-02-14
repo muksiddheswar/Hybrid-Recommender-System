@@ -21,7 +21,11 @@ The RE will consist of 3 parts:
 2.	Collaborative Similarity
 3.	Additional Business Logic
 
-The Recommendation core will be accessible via various APIs. Apart from the standard recommendation methods, the final list is created by applying additional business rules. This logic and the learning models have been discussed in the individual sections.
+The Recommendation core will be accessible via various APIs. Apart from the standard recommendation methods, the final list is created by applying additional business rules. 
+
+<br>
+
+***The logic and the learning models have been discussed in the individual sections.***
 
 
 
