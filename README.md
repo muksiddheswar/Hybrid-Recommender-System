@@ -14,7 +14,7 @@ Content Marketing Website that displays articles to end users.
 
 - Currently homepage content, readable articles, are presented to all website viewers in the same default order. In future “user behaviour data” will be used to show content in order of relevance for users.
 
-- Suggested reading links are recommended at the end of each article, which, at the moment are manually set. In future usage of “user behaviour data” will be used to show dynamically generated relevant suggestions.
+- Suggested reading links are recommended at the end of each article, which, at the moment are manually set. In future, usage of “user behaviour data” will be used to show dynamically generated relevant suggestions.
 
 
 The environment consists of a TYPO3 website which will use a customised Recommendation Engine (RE).   
