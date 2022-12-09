@@ -16,7 +16,7 @@ Created on Thu Aug 22 14:37:14 2019
 import pandas as pd
 import numpy as np
 
-# Requried for connection to MySQL db
+# Required for connection to MySQL db
 import pymysql
 
 from content_recommendation.parameters.db_config import *
