@@ -13,41 +13,34 @@ from content_recommendation.parameters.db_config import *
 from flask import jsonify
 from flask import flash, request
 
-from content_recommendor import *
+from content_recommender import *
 import pandas as pd
 
 
-
 @app.route('/content-reco-cosine')
-def content_recommendor_cosine():
+def content_recommender_cosine():
+    try:
 
-	try:
+        req_data = request.get_json()
+        resp = reco_catcher_cosine(req_data)
+        resp = resp.to_json(orient='records')
+        return resp
 
-		req_data = request.get_json()
-		resp = reco_catcher_cosine(req_data)
-		resp = resp.to_json(orient='records')
-		return resp
-
-	except Exception as e:
-		print(e)
-
+    except Exception as e:
+        print(e)
 
 
 @app.route('/content-reco-ts')
-def content_recommendor_ts_ss():
+def content_recommender_ts_ss():
+    try:
 
-	try:
+        req_data = request.get_json()
+        resp = reco_catcher_ts_ss(req_data)
+        resp = resp.to_json(orient='records')
+        return resp
 
-		req_data = request.get_json()
-		resp = reco_catcher_ts_ss(req_data)
-		resp = resp.to_json(orient='records')
-		return resp
-
-	except Exception as e:
-		print(e)
-
-
-
+    except Exception as e:
+        print(e)
 
 
 @app.errorhandler(404)
@@ -59,6 +52,7 @@ def not_found(error=None):
     resp = jsonify(message)
     resp.status_code = 404
     return resp
-		
+
+
 if __name__ == "__main__":
     app.run()
